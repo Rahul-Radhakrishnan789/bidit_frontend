@@ -4,6 +4,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import SignUpPage from "./pages/User/SignUpPage";
 import LoginPage from "./pages/User/LoginPage";
 import UserHomePage from "./pages/User/UserHomePage";
+import VendorHomePage from "./pages/vendor/VendorHomePage";
 function App() {
   return (
     <GoogleOAuthProvider clientId="203571099479-rksr2l7odk6d8m71nrk8n2g1jv5aerpo.apps.googleusercontent.com">
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<UserHomePage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/vendor" element={< VendorHomePage/>}/>
         </Routes>
         </Router>
       </div>
