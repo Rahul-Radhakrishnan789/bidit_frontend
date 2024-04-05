@@ -30,7 +30,7 @@ export default function Navbar() {
         }}
       >
         <Box sx={sx.logoStyle} onClick={() => nav("/")}>
-         <img width={75} src="logo.png" alt="" />
+         <img width={75} src="/logo.png" alt="" />
         </Box>
         <button
           onClick={handleButtonClick}
@@ -88,7 +88,7 @@ export default function Navbar() {
         {!isSmallScreen && (
           <>
             <Box sx={{ display: "flex" }}>
-              <Box sx={sx.navLinks} onClick={() => nav("/user/events")}>
+              <Box sx={sx.navLinks} onClick={() => nav("/user/auctions")}>
                 Auctions
               </Box>
               <Box sx={sx.navLinks}>About</Box>
