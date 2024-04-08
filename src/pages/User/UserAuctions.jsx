@@ -89,6 +89,37 @@ const UserAuctions = () => {
 
   const [bidData, setBidData] = useState([]);
 
+  const [filters,setFilters] = useState({
+    jewellery: false,
+    auditorium: false,
+    bridalGowns: false,
+    cateringService: false,
+    photography: false,
+})
+
+const filterBidData = () => {
+  let filteredData = bidData;
+
+
+  if (filters.jewellery) {
+      filteredData = filteredData.filter(item => item.category === 'jewellery');
+  }
+  if (filters.auditorium) {
+      filteredData = filteredData.filter(item => item.category === 'auditorium');
+  }
+  if (filters.bridalGowns) {
+      filteredData = filteredData.filter(item => item.category === 'bridalGowns');
+  }
+  if (filters.cateringService) {
+      filteredData = filteredData.filter(item => item.category === 'cateringService');
+  }
+  if (filters.photography) {
+      filteredData = filteredData.filter(item => item.category === 'photography');
+  }
+
+  return filteredData;
+};
+
   const fetchBidData = async () => {
     try {
       const bidData = await axios.get("/api/getbids");
@@ -104,7 +135,17 @@ const UserAuctions = () => {
 
   useEffect(() => {
     fetchBidData();
+  
   }, []);
+
+
+  const handleCheckboxClick = (filterName, checked) => {
+    setFilters(prevFilters => ({
+        ...prevFilters,
+        [filterName]: checked,
+    }));
+};
+
 
 
   return (
@@ -127,7 +168,9 @@ const UserAuctions = () => {
             <Tooltip title="Jewellery" placement="right" arrow>
               <MenuItem>
                 <span>
-                  <Checkbox />
+                  <Checkbox 
+                 onClick={(e) => handleCheckboxClick('jewellery', e.target.checked)}
+                 checked={filters.jewellery}/>
                 </span>
                 <span>Jewellery</span>
               </MenuItem>
@@ -135,7 +178,9 @@ const UserAuctions = () => {
             <Tooltip title="Auditorium" placement="right" arrow>
               <MenuItem>
                 <span>
-                  <Checkbox />
+                <Checkbox 
+                 onClick={(e) => handleCheckboxClick('auditorium', e.target.checked)}
+                 checked={filters.auditorium}/>
                 </span>
                 <span>Auditorium</span>
               </MenuItem>
@@ -143,7 +188,9 @@ const UserAuctions = () => {
             <Tooltip title="Bridal Gowns" placement="right" arrow>
               <MenuItem>
                 <span>
-                  <Checkbox />
+                <Checkbox 
+                 onClick={(e) => handleCheckboxClick('bridalGowns', e.target.checked)}
+                 checked={filters.bridalGowns}/>
                 </span>
                 <span>Bridal Gowns</span>
               </MenuItem>
@@ -151,7 +198,9 @@ const UserAuctions = () => {
             <Tooltip title="Catering Service" placement="right" arrow>
               <MenuItem>
                 <span>
-                  <Checkbox />
+                <Checkbox 
+                 onClick={(e) => handleCheckboxClick('cateringService', e.target.checked)}
+                 checked={filters.cateringService}/>
                 </span>
                 <span>Catering Service</span>
               </MenuItem>
@@ -159,7 +208,9 @@ const UserAuctions = () => {
             <Tooltip title="Photography" placement="right" arrow>
               <MenuItem>
                 <span>
-                  <Checkbox />
+                <Checkbox 
+                 onClick={(e) => handleCheckboxClick('photography', e.target.checked)}
+                 checked={filters.photography}/>
                 </span>
                 <span>Photography</span>
               </MenuItem>
@@ -168,7 +219,7 @@ const UserAuctions = () => {
         </SideBars>
         <AuctionContent>
           <GridContainer container spacing={2}>
-            {bidData.map((data, index) => (
+            {filterBidData().map((data, index) => (
               <GridItems key={index} item xs={12} sm={6} lg={3}>
                 <Cards>
                   <ImageBox>
@@ -193,8 +244,32 @@ const UserAuctions = () => {
                           <TimelapseIcon style={{ height: "18px" }} />
                         </ListItemIcon>
                         <Countdown
-                           date={date.now() + data.auctionDuration}
+                          date={
+                            Date.now() +
+                            ((new Date(data.startTime).getTime() +
+                              data.auctionDuration * 3600000) -
+                              Date.now())
+                          }
+                          renderer={({
+                            days,
+                            hours,
+                            minutes,
+                            seconds,
+                            completed,
+                          }) => {
+                            if (completed) {
+                              return <span>Auction ended</span>;
+                            } else {
+                              return (
+                                <span>
+                                  
+                                  {days}d {hours}h {minutes}m {seconds}s
+                                </span>
+                              );
+                            }
+                          }}
                         />
+
                         <Button sx={{ fontSize: "12px", color: "orange" }}>
                           Bid now
                         </Button>
