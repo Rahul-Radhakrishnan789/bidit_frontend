@@ -9,9 +9,9 @@ export default function UserHomePage() {
   return (
     <>
       <Navbar />
-      <Box>
+     
       <UserImageSection/>
-      </Box>
+   
 
       <Details/>
 
