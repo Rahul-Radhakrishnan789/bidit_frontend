@@ -70,7 +70,7 @@ export default function SignUpPage() {
         };
 
         const response = await axios.post(
-          "http://localhost:5000/commonregister",
+          "http://localhost:5000/api/commonregister",
           data
         );
         console.log(response, "response");
@@ -90,7 +90,7 @@ export default function SignUpPage() {
         };
 
         const response = await axios.post(
-          "http://localhost:5000/commonregister",
+          "http://localhost:5000/api/commonregister",
           data
         );
         console.log(response);
@@ -105,7 +105,7 @@ export default function SignUpPage() {
         password: formData.password,
       };
       const response = await axios.post(
-        "http://localhost:5000/commonregister",
+        "http://localhost:5000/api/commonregister",
         data
       );
       console.log(response);
@@ -144,7 +144,7 @@ export default function SignUpPage() {
     };
 
     fetchData();
-  }, [user, profile]);
+  }, [user]);
   console.log("profile", profile);
   // normal form
 
