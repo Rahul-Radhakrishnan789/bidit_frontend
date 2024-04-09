@@ -21,6 +21,7 @@ import TimelapseIcon from "@mui/icons-material/Timelapse";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import Navbar from "../../components/userComponents/Navbar";
 import Countdown from "react-countdown";
+import {useNavigate} from "react-router-dom"
 
 const SideBars = styled(Sidebar)`
   .ps-sidebar-container {
@@ -86,7 +87,7 @@ const ListItems = styled(ListItem)`
 
 const UserAuctions = () => {
   const { collapseSidebar } = useProSidebar();
-
+    const navigate = useNavigate()
   const [bidData, setBidData] = useState([]);
 
   const [filters,setFilters] = useState({
@@ -270,7 +271,7 @@ const filterBidData = () => {
                           }}
                         />
 
-                        <Button sx={{ fontSize: "12px", color: "orange" }}>
+                        <Button onClick={()=>navigate(`/user/auctions/bid/${data._id}`)} sx={{ fontSize: "12px", color: "orange" }}>
                           Bid now
                         </Button>
                       </ListItems>
