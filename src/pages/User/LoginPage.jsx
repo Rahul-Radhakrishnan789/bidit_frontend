@@ -60,7 +60,7 @@ const LoginPage = () => {
           isVendor: true,
         };
         const response = await axios.post(
-          "http://localhost:5000/commonlogin",
+          "http://localhost:5000/api/commonlogin",
           Data
         );
         if (response && response.data.type === "ventor") {
@@ -81,7 +81,7 @@ const LoginPage = () => {
         isVendor: false,
       };
       const response = await axios.post(
-        "http://localhost:5000/commonlogin",
+        "http://localhost:5000/api/commonlogin",
         Data
       );
       if (response && response.data.type === "user") {
