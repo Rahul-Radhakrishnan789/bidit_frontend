@@ -21,7 +21,7 @@ import TimelapseIcon from "@mui/icons-material/Timelapse";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import Navbar from "../../components/userComponents/Navbar";
 import Countdown from "react-countdown";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 const SideBars = styled(Sidebar)`
   .ps-sidebar-container {
@@ -87,39 +87,49 @@ const ListItems = styled(ListItem)`
 
 const UserAuctions = () => {
   const { collapseSidebar } = useProSidebar();
-    const navigate = useNavigate()
+  const navigate = useNavigate();
   const [bidData, setBidData] = useState([]);
+  const [changeButton, setChangeButton] = useState(true);
 
-  const [filters,setFilters] = useState({
+  const [filters, setFilters] = useState({
     jewellery: false,
     auditorium: false,
     bridalGowns: false,
     cateringService: false,
     photography: false,
-})
+  });
 
-const filterBidData = () => {
-  let filteredData = bidData;
+  const filterBidData = () => {
+    let filteredData = bidData;
 
+    if (filters.jewellery) {
+      filteredData = filteredData.filter(
+        (item) => item.category === "jewellery"
+      );
+    }
+    if (filters.auditorium) {
+      filteredData = filteredData.filter(
+        (item) => item.category === "auditorium"
+      );
+    }
+    if (filters.bridalGowns) {
+      filteredData = filteredData.filter(
+        (item) => item.category === "bridalGowns"
+      );
+    }
+    if (filters.cateringService) {
+      filteredData = filteredData.filter(
+        (item) => item.category === "cateringService"
+      );
+    }
+    if (filters.photography) {
+      filteredData = filteredData.filter(
+        (item) => item.category === "photography"
+      );
+    }
 
-  if (filters.jewellery) {
-      filteredData = filteredData.filter(item => item.category === 'jewellery');
-  }
-  if (filters.auditorium) {
-      filteredData = filteredData.filter(item => item.category === 'auditorium');
-  }
-  if (filters.bridalGowns) {
-      filteredData = filteredData.filter(item => item.category === 'bridalGowns');
-  }
-  if (filters.cateringService) {
-      filteredData = filteredData.filter(item => item.category === 'cateringService');
-  }
-  if (filters.photography) {
-      filteredData = filteredData.filter(item => item.category === 'photography');
-  }
-
-  return filteredData;
-};
+    return filteredData;
+  };
 
   const fetchBidData = async () => {
     try {
@@ -134,22 +144,16 @@ const filterBidData = () => {
     }
   };
 
-  
-
   useEffect(() => {
     fetchBidData();
-  
   }, []);
 
-
   const handleCheckboxClick = (filterName, checked) => {
-    setFilters(prevFilters => ({
-        ...prevFilters,
-        [filterName]: checked,
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [filterName]: checked,
     }));
-};
-
-
+  };
 
   return (
     <>
@@ -171,9 +175,12 @@ const filterBidData = () => {
             <Tooltip title="Jewellery" placement="right" arrow>
               <MenuItem>
                 <span>
-                  <Checkbox 
-                 onClick={(e) => handleCheckboxClick('jewellery', e.target.checked)}
-                 checked={filters.jewellery}/>
+                  <Checkbox
+                    onClick={(e) =>
+                      handleCheckboxClick("jewellery", e.target.checked)
+                    }
+                    checked={filters.jewellery}
+                  />
                 </span>
                 <span>Jewellery</span>
               </MenuItem>
@@ -181,9 +188,12 @@ const filterBidData = () => {
             <Tooltip title="Auditorium" placement="right" arrow>
               <MenuItem>
                 <span>
-                <Checkbox 
-                 onClick={(e) => handleCheckboxClick('auditorium', e.target.checked)}
-                 checked={filters.auditorium}/>
+                  <Checkbox
+                    onClick={(e) =>
+                      handleCheckboxClick("auditorium", e.target.checked)
+                    }
+                    checked={filters.auditorium}
+                  />
                 </span>
                 <span>Auditorium</span>
               </MenuItem>
@@ -191,9 +201,12 @@ const filterBidData = () => {
             <Tooltip title="Bridal Gowns" placement="right" arrow>
               <MenuItem>
                 <span>
-                <Checkbox 
-                 onClick={(e) => handleCheckboxClick('bridalGowns', e.target.checked)}
-                 checked={filters.bridalGowns}/>
+                  <Checkbox
+                    onClick={(e) =>
+                      handleCheckboxClick("bridalGowns", e.target.checked)
+                    }
+                    checked={filters.bridalGowns}
+                  />
                 </span>
                 <span>Bridal Gowns</span>
               </MenuItem>
@@ -201,9 +214,12 @@ const filterBidData = () => {
             <Tooltip title="Catering Service" placement="right" arrow>
               <MenuItem>
                 <span>
-                <Checkbox 
-                 onClick={(e) => handleCheckboxClick('cateringService', e.target.checked)}
-                 checked={filters.cateringService}/>
+                  <Checkbox
+                    onClick={(e) =>
+                      handleCheckboxClick("cateringService", e.target.checked)
+                    }
+                    checked={filters.cateringService}
+                  />
                 </span>
                 <span>Catering Service</span>
               </MenuItem>
@@ -211,9 +227,12 @@ const filterBidData = () => {
             <Tooltip title="Photography" placement="right" arrow>
               <MenuItem>
                 <span>
-                <Checkbox 
-                 onClick={(e) => handleCheckboxClick('photography', e.target.checked)}
-                 checked={filters.photography}/>
+                  <Checkbox
+                    onClick={(e) =>
+                      handleCheckboxClick("photography", e.target.checked)
+                    }
+                    checked={filters.photography}
+                  />
                 </span>
                 <span>Photography</span>
               </MenuItem>
@@ -249,8 +268,8 @@ const filterBidData = () => {
                         <Countdown
                           date={
                             Date.now() +
-                            ((new Date(data.startTime).getTime() +
-                              data.auctionDuration * 3600000) -
+                            (new Date(data.startTime).getTime() +
+                              data.auctionDuration * 3600000 -
                               Date.now())
                           }
                           renderer={({
@@ -265,16 +284,21 @@ const filterBidData = () => {
                             } else {
                               return (
                                 <span>
-                                  
                                   {days}d {hours}h {minutes}m {seconds}s
                                 </span>
                               );
                             }
                           }}
+                          onComplete={() => setChangeButton(true)}
                         />
 
-                        <Button onClick={()=>navigate(`/user/auctions/bid/${data._id}`)} sx={{ fontSize: "12px", color: "orange" }}>
-                          Bid now
+                        <Button
+                          onClick={() =>
+                            navigate(`/user/auctions/bid/${data._id}`)
+                          }
+                          sx={{ fontSize: "12px", color: "orange" }}
+                        >
+                          view
                         </Button>
                       </ListItems>
                     </Lists>
