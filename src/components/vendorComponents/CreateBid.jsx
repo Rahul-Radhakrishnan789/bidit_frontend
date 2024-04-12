@@ -1,7 +1,7 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import axios from "../../utils/AxiosInstance"
-import { Box, TextField, Button, FormControl } from "@mui/material";
+import { useState } from "react";
+import axios from "../../utils/AxiosInstance";
+import { Box, Button, FormControl, MenuItem, Select, TextField } from "@mui/material";
 
 export default function CreateBid() {
   const [formData, setFormData] = useState({
@@ -29,11 +29,11 @@ export default function CreateBid() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("main form data",formData);
+    console.log("main form data", formData);
     try {
       const formDataToSend = new FormData();
 
-      const vendorId = localStorage.getItem("vendorId")
+      const vendorId = localStorage.getItem("vendorId");
 
       for (const key in formData) {
         if (key === "images") {
@@ -65,7 +65,7 @@ export default function CreateBid() {
 
   return (
     <Box sx={sx.mainContainer}>
-      <form onSubmit={handleSubmit}>
+      <form style={{width:'100%'}} onSubmit={handleSubmit}>
         <Box sx={sx.form}>
           <h2 style={{ color: "#0c1022" }}>Create New Bid</h2>
           <TextField
@@ -77,14 +77,21 @@ export default function CreateBid() {
             sx={sx.inputBox}
           />
           <FormControl fullWidth>
-            <TextField
+            <Select
               label="Category"
               name="category"
               value={formData.category}
               onChange={handleChange}
               required
               sx={sx.inputBox}
-            />
+            >
+              <MenuItem value="">Select Category</MenuItem>
+              <MenuItem value="jewellery">Jewellery</MenuItem>
+              <MenuItem value="auditorium">Auditorium</MenuItem>
+              <MenuItem value="bridalGowns">Bridal Gowns</MenuItem>
+              <MenuItem value="cateringService">Catering Service</MenuItem>
+              <MenuItem value="photography">Photography</MenuItem>
+            </Select>
           </FormControl>
           <TextField
             label="Description"
@@ -113,7 +120,7 @@ export default function CreateBid() {
             required
             sx={sx.inputBox}
           />
-        <input
+          <input
             required={true}
             type="file"
             name="images"
@@ -133,12 +140,12 @@ export default function CreateBid() {
 
 const sx = {
   mainContainer: {
-    minWidth: "80%",
+    maxWidth: {xs:'100%', sm:'70%',md:'50%'},
     display: "flex",
     justifyContent: "space-between",
     overflow: "hidden",
-
-    padding: "10px",
+    margin:'0 auto',
+    padding: {xs:'0', sm:'10px'},
   },
   inputBox: {
     backgroundColor: "white",
@@ -159,9 +166,7 @@ const sx = {
     display: "flex",
     flexDirection: "column",
     padding: "5%",
-    minWidth: "150%",
     background: "#BFBFBF",
     borderRadius: "10px",
-    marginLeft: "70%",
   },
 };
