@@ -86,10 +86,10 @@ const ListItems = styled(ListItem)`
 `;
 
 const UserAuctions = () => {
-  const { collapseSidebar } = useProSidebar();
-  const navigate = useNavigate();
-  const [bidData, setBidData] = useState([]);
-  const [changeButton, setChangeButton] = useState(true);
+    const { collapseSidebar } = useProSidebar();
+    const navigate = useNavigate();
+    const [bidData, setBidData] = useState([]);
+    const [changeButton, setChangeButton] = useState(true);
 
     const [filters, setFilters] = useState({
         jewellery: false,
@@ -118,8 +118,8 @@ const UserAuctions = () => {
             filteredData = filteredData.filter((item) => item.category === "photography");
         }
 
-          return filteredData;
-      };
+        return filteredData;
+    };
 
     const fetchBidData = async () => {
         try {
@@ -147,7 +147,9 @@ const UserAuctions = () => {
 
     return (
         <>
-            <Navbar />
+            <Box sx={{ position: "sticky", top: "0", background: "white", zIndex: "999" }}>
+                <Navbar />
+            </Box>
             <div style={{ height: "100vh", display: "flex" }}>
                 <SideBars style={{ height: "100vh !important" }}>
                     <Menu>
