@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, styled, Grid, Card, Typography, Button } from "@mui/material";
 import Navbar from "../../components/userComponents/Navbar";
 import Footer from "../../components/userComponents/Footer";
+import axios from "../../utils/AxiosInstance"
 
 // -------styles--------------
 
@@ -56,7 +57,86 @@ const BidContent = styled(Box)`
 `;
 // ---------styles---------
 
+
+
 const UserBids = () => {
+
+    const [datas,setDatas] = useState([])
+
+
+    // payment --------------   
+
+    const initPayment = (data) => {
+        const options = {
+          amount: datas.amount,
+          currency: data.currency,
+          description: "Test Transaction",
+          image:
+            "https://img.freepik.com/premium-vector/fast-play-symbol-logo-with-letter-f_45189-7.jpg?w=740",
+          order_id: data.id,
+          handler: async (response) => {
+            try {
+              const additionalCredentials = {
+                amount: datas[0]?.highestBidderId.amount
+               
+              };
+              const user = localStorage.getItem("userId");
+    
+              console.log("uid", user);
+    
+              const { data } = await axios.post(`/api/paymentfinal/${datas[0]?.itemId}/${user}`, {
+                ...response,
+                ...additionalCredentials,
+              });
+              console.log(data);
+              if (data) {
+                // handleOrders();
+              }
+            } catch (error) {
+              console.log(error);
+            }
+          },
+          theme: {
+            color: "#3399cc",
+          },
+        };
+        const rzp1 = new window.Razorpay(options);
+        rzp1.open();
+      };
+
+      const handleClick = async () => {
+        try {
+          const { data } = await axios.post("/api/paymentstart", {
+            amount: datas[0]?.highestBidderId.amount
+          });
+          console.log(data);
+          initPayment(data.data);
+        } catch (error) {
+          console.error("error:", error);
+        }
+      };
+    
+    
+// fetch data ------------
+
+const fetchData = async () => {
+
+
+    const userId = localStorage.getItem("userId")
+
+    const response = await axios.get("/api/fetchuserbids")
+
+    const usersBids = response.data.data.filter((data) => data.highestBidderId.userId == userId)
+
+    setDatas(usersBids)
+
+    console.log('responseData',usersBids)
+
+}
+
+useEffect(() => {
+    fetchData()
+},[])
     return (
         <Maincontainer sx={{ padding: { xs: "0 .5rem", sm: "0 1rem" } }}>
             <Box sx={{ position: "sticky", top: "0", background: "white", zIndex: "1" }}>
@@ -86,7 +166,7 @@ const UserBids = () => {
                                     <Typography variant="h5">Bid Price: $ 100000</Typography>
                                 </Box>
 
-                                <Button variant="contained">Place order</Button>
+                                <Button variant="contained" onClick={handleClick}>Pay Now</Button>
                             </BidContent>
                         </GridItems>
                     </GridContainer>
