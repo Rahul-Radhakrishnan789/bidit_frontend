@@ -204,13 +204,13 @@ const UserBidView = () => {
       : null;
   // -------------
 
-  const placeBid = async () => {
-    if (amount > finalBid) {
-      try {
-        const userId = localStorage.getItem("userId");
-        const response = await axios.post(`/api/placebid/${userId}/${id}`, {
-          amount,
-        });
+    const placeBid = async () => {
+        if (amount > finalBid && amount > bidData?.basePrice) {
+            try {
+                const userId = localStorage.getItem("userId");
+                const response = await axios.post(`/api/placebid/${userId}/${id}`, {
+                    amount,
+                });
 
         console.log("response", response.data.data);
         setAmount();
@@ -292,13 +292,13 @@ const UserBidView = () => {
   
   
     return (
-      <Maincontainer>
-        <Box sx={{ position: "sticky", top: 0, background: "white" }}>
-          <Navbar />
-        </Box>
-        <SubContainer sx={{ padding: { xs: 0, sm: "1rem" } }}>
-          <Box className="head_desc">
-            {/* <Breadcrumbs aria-label="breadcrumb">
+        <Maincontainer>
+            <Box sx={{ position: "sticky", top: 0, background: "white" }}>
+                <Navbar />
+            </Box>
+            <SubContainer sx={{ padding: { xs: 0, sm: "1rem" } }}>
+                <Box className="head_desc">
+                    {/* <Breadcrumbs aria-label="breadcrumb">
                         <Link underline="hover" color="inherit" to={'/'} >
                             home
                         </Link>
@@ -518,7 +518,7 @@ const UserBidView = () => {
             </GridItems>
           </Gridcontainer>
         </SubContainer>
-        <Footer />
+        <Footer  />
       </Maincontainer>
     );
 };
