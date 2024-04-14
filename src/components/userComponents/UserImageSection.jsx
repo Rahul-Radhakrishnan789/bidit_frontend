@@ -46,13 +46,9 @@ const UserImageSection = () => {
             <Grids container spacing={2}>
                 <GridItmes item xs={12} md={6}>
                     <TexContent sx={{height:{xs:'auto', md:'100%'},textAlign:{xs:'center', md:'left'}}}>
-                        <Text variant="h3">Heading</Text>
+                        <Text variant="h3">Unveiling Dream Weddings</Text>
                         <Text >
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque unde fugiat facere minus
-                            architecto, quos labore officia culpa esse exercitationem voluptatibus vel obcaecati molestias
-                            eligendi eius nostrum? Quas sequi, asperiores aspernatur maiores quae fugiat, suscipit excepturi
-                            rerum quo modi aliquam dolore dolorum. Nostrum iure temporibus exercitationem quaerat voluptatum
-                            eos sequi?
+                        Turn "I do" into "I won!"  BIDIT is your one-stop shop for creating a wedding that's uniquely you, without breaking the bank.  Experience the thrill of an online auction platform dedicated to securing your dream wedding services and products at incredible prices.
                         </Text>
                     </TexContent>
                 </GridItmes>
