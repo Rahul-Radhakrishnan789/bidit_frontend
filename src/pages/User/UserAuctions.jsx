@@ -23,10 +23,20 @@ import Navbar from "../../components/userComponents/Navbar";
 import Countdown from "react-countdown";
 import { useNavigate } from "react-router-dom";
 
+const Maincontainer = styled(Box)`
+    background-image: url("https://t3.ftcdn.net/jpg/00/98/52/26/360_F_98522695_S9vAeY8a3O4AYFUDr2WVlk4eCWrqf7hx.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+`;
+
 const SideBars = styled(Sidebar)`
     .ps-sidebar-container {
         background: transparent;
+        border-right: 1px solid black;
+
     }
+    
 `;
 
 const AuctionContent = styled(Box)`
@@ -34,7 +44,10 @@ const AuctionContent = styled(Box)`
     width: 100%;
     height: 100vh;
     overflow: auto;
-    padding: 10px 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 0;
 `;
 const GridContainer = styled(Grid)``;
 const GridItems = styled(Grid)``;
@@ -146,7 +159,7 @@ const UserAuctions = () => {
     };
 
     return (
-        <>
+        <Maincontainer>
             <Box sx={{ position: "sticky", top: "0", background: "white", zIndex: "999" }}>
                 <Navbar />
             </Box>
@@ -283,7 +296,7 @@ const UserAuctions = () => {
                     </GridContainer>
                 </AuctionContent>
             </div>
-        </>
+        </Maincontainer>
     );
 };
 

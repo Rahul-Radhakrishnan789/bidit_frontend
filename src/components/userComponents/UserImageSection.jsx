@@ -3,15 +3,9 @@ import React from "react";
 
 const Maincontainer = styled(Box)`
     margin-top: 20px;
-    background-image:url('https://t3.ftcdn.net/jpg/00/98/52/26/360_F_98522695_S9vAeY8a3O4AYFUDr2WVlk4eCWrqf7hx.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding:20px 30px;
-
+    padding: 20px 30px;
 `;
-const Grids = styled(Grid)`
-`;
+const Grids = styled(Grid)``;
 
 const GridItmes = styled(Grid)`
     padding: 0;
@@ -37,7 +31,6 @@ const ImageContent = styled(Box)`
         width: 100%;
         border-radius: 20px;
     }
-   
 `;
 
 const UserImageSection = () => {
@@ -45,9 +38,9 @@ const UserImageSection = () => {
         <Maincontainer>
             <Grids container spacing={2}>
                 <GridItmes item xs={12} md={6}>
-                    <TexContent sx={{height:{xs:'auto', md:'100%'},textAlign:{xs:'center', md:'left'}}}>
+                    <TexContent sx={{ height: { xs: "auto", md: "100%" }, textAlign: { xs: "center", md: "left" } }}>
                         <Text variant="h3">Heading</Text>
-                        <Text >
+                        <Text>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque unde fugiat facere minus
                             architecto, quos labore officia culpa esse exercitationem voluptatibus vel obcaecati molestias
                             eligendi eius nostrum? Quas sequi, asperiores aspernatur maiores quae fugiat, suscipit excepturi
@@ -87,7 +80,6 @@ const UserImageSection = () => {
                     </ImageContent>
                 </GridItmes>
             </Grids>
-            
         </Maincontainer>
     );
 };

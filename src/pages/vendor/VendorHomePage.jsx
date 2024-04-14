@@ -2,10 +2,10 @@ import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { useState, useEffect } from "react";
-import axios from '../../utils/AxiosInstance'
+import axios from "../../utils/AxiosInstance";
 import ShowAllBids from "../../components/vendorComponents/ShowAllBids";
 import CreateBid from "../../components/vendorComponents/CreateBid";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Box, styled } from "@mui/material";
 
 const SideBars = styled(Sidebar)`
@@ -13,10 +13,6 @@ const SideBars = styled(Sidebar)`
         background: transparent;
     }
 `;
-
-
-
-
 
 function VendorHomePage() {
     // const [data, setData] = useState([]);
@@ -43,7 +39,7 @@ function VendorHomePage() {
     return (
         <>
             <div style={({ height: "100vh" }, { display: "flex" })}>
-                <SideBars style={{ height: "100vh"}}>
+                <SideBars style={{ height: "100vh" }}>
                     <Menu>
                         <MenuItem
                             icon={<MenuOutlinedIcon />}
@@ -56,7 +52,7 @@ function VendorHomePage() {
                             <h2>Organizer</h2>
                         </MenuItem>
 
-                        <MenuItem icon={<AddCircleOutlineIcon />} onClick={() => setChildren(<CreateBid  />)}>
+                        <MenuItem icon={<AddCircleOutlineIcon />} onClick={() => setChildren(<CreateBid />)}>
                             Create New Bid
                         </MenuItem>
                         <MenuItem onClick={() => setChildren(<ShowAllBids />)} icon={<PeopleOutlinedIcon />}>
