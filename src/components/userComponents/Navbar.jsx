@@ -8,6 +8,7 @@ export default function Navbar() {
     const nav = useNavigate();
     const isSmallScreen = useMediaQuery("(max-width:850px)");
     const [popoverAnchor, setPopoverAnchor] = useState(null);
+    const [logout,setLogout] = useState(false)
 
     const handleButtonClick = (event) => {
         setPopoverAnchor(event.currentTarget);
@@ -70,8 +71,8 @@ export default function Navbar() {
                         <Button href="#" color="inherit" sx={sx.popoverButton} onClick={() => nav("/user/auctions")}>
                             Auctions
                         </Button>
-                        <Button href="#" color="inherit" sx={sx.popoverButton}>
-                            About
+                        <Button href="#" color="inherit" sx={sx.popoverButton} onClick={() => nav("/admin")}>
+                            Admin
                         </Button>
                         <Button href="#" color="inherit" sx={sx.popoverButton} onClick={() => nav("/user/mybids")}>
                             My Bids
@@ -90,7 +91,7 @@ export default function Navbar() {
                             <Box sx={sx.navLinks} onClick={() => nav("/user/auctions")}>
                                 Auctions
                             </Box>
-                            <Box sx={sx.navLinks}>About</Box>
+                            <Box sx={sx.navLinks}  onClick={() => nav("/admin")} >Admin</Box>
                             <Box sx={sx.navLinks} onClick={() => nav("/user/mybids")}>
                                 My&nbsp;Bids
                             </Box>
@@ -105,7 +106,8 @@ export default function Navbar() {
                             }}
                         >
                             {localStorage.getItem("userId") ? (
-                                <Box onClick={() => localStorage.removeItem("userId")}>Logout</Box>
+                                <Box onClick={() => { localStorage.removeItem("userId")
+                                 setLogout(true)}}>Logout</Box>
                             ) : (
                                 <Button variant="outlined" onClick={() => nav("/signup")}>
                                     Login&nbsp;/&nbsp;Register&nbsp;&nbsp;

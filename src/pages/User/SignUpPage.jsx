@@ -9,6 +9,7 @@ import {
   Box,
   Checkbox,
   Alert,
+  Link
 } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -210,7 +211,8 @@ export default function SignUpPage() {
               value={formData.password}
               onChange={handleChange}
             />
-            <label>
+            <Box>
+              <Box><label>
               Vender
               <Checkbox
                 checked={isChecked}
@@ -225,7 +227,10 @@ export default function SignUpPage() {
                   },
                 }}
               />
-            </label>
+            </label></Box>
+              <Box><Link onClick={() => navigate("/login")}>already have an account ? signin</Link></Box>
+            </Box>
+            
             <Button
               type="submit"
               variant="contained"
