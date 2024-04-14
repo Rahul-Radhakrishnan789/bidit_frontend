@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import GoogleButton from "react-google-button";
-import { TextField, Button, Container, Typography, Box, Checkbox, Alert } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Container,
+  Typography,
+  Box,
+  Checkbox,
+  Alert,
+  Link
+} from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { pink } from "@mui/material/colors";
@@ -190,7 +199,8 @@ export default function SignUpPage() {
                             value={formData.password}
                             onChange={handleChange}
                         />
-                        <label>
+                        <Box>
+              <Box><label>
                             Vender
                             <Checkbox
                                 checked={isChecked}
@@ -205,7 +215,10 @@ export default function SignUpPage() {
                                     },
                                 }}
                             />
-                        </label>
+                        </label></Box>
+              <Box><Link onClick={() => navigate("/login")}>already have an account ? signin</Link></Box>
+            </Box>
+            
                         <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
                             Sign Up
                         </Button>

@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { TextField, Button, Container, Typography, Box, Checkbox, Alert } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Container,
+  Typography,
+  Box,
+  Checkbox,
+  Alert,
+  Link
+} from "@mui/material";
 import { pink } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 
@@ -118,7 +127,9 @@ const LoginPage = () => {
                             value={formData.password}
                             onChange={handleChange}
                         />
-                        <label>
+
+            <Box>
+                          <Box> <label>
                             Vender
                             <Checkbox
                                 checked={isChecked}
@@ -132,7 +143,10 @@ const LoginPage = () => {
                                     },
                                 }}
                             />
-                        </label>
+                        </label></Box>
+            <Box><Link onClick={() => navigate("/signup")}>already have an account ? Register</Link></Box>
+            </Box>
+           
 
                         <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
                             Login

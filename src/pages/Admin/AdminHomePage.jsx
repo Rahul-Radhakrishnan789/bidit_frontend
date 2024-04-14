@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Tabs, Tab, Box, styled, Typography } from "@mui/material";
 import UserTable from "../../components/adminComponents/UserTable";
 import VentorTable from "../../components/adminComponents/VentorTable";
+import { useNavigate } from "react-router-dom";
 import axios from "../../utils/AxiosInstance";
 
 const ContentBox = styled(Box)`
@@ -15,7 +16,9 @@ const AdminHomePage = () => {
 
     const [userData, setUserData] = useState([]);
 
-    const [vendorData, setVendorData] = useState([]);
+  const [vendorData,setVendorData] = useState([]);
+
+  const nav = useNavigate()
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -53,28 +56,29 @@ const AdminHomePage = () => {
         }
     }, [value]);
 
-    return (
-        <Box sx={{ width: "100%" }}>
-            <Typography variant={"h4"} sx={{ position: "absolute", left: { xs: "0", sm: "20px" }, top: 0 }}>
-                <img width={80} src="/public/logo.png" alt="" />
-            </Typography>
-            <Tabs
-                value={value}
-                onChange={handleChange}
-                textColor="primary"
-                indicatorColor="primary"
-                aria-label="secondary tabs example"
-                centered
-                sx={{ width: "100%" }}
-            >
-                <Tab value={1} label="Users" />
-                <Tab value={2} label="Ventors" />
-            </Tabs>
-            <ContentBox>
-                {value === 1 ? <UserTable userData={userData} /> : <VentorTable vendorData={vendorData} />}
-            </ContentBox>
-        </Box>
-    );
+  return (
+    <Box sx={{ width: "100%", }} >
+      <Box
+        sx={{ position: "relative", left: { xs: "0", sm: "20px" }, top: 10 ,cursor:'pointer' }}
+        onClick={() => nav("/")}
+      >
+      <img width={80} src="/logo.png" alt="" />
+      </Box>
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        textColor="primary"
+        indicatorColor="primary"
+        aria-label="secondary tabs example"
+        centered
+        sx={{ width: "100%" }}
+      >
+        <Tab value={1} label="Users" />
+        <Tab value={2} label="Ventors" />
+      </Tabs>
+      <ContentBox>{value === 1 ? <UserTable userData={userData} /> : <VentorTable vendorData={vendorData} />}</ContentBox>
+    </Box>
+  );
 };
 
 export default AdminHomePage;
