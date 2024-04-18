@@ -31,11 +31,7 @@ export default function SignUpPage() {
         setIsChecked(event.target.checked);
     };
 
-    const login = useGoogleLogin({
-        onSuccess: (codeResponse) => setUser(codeResponse),
-        onError: (error) => console.log("Login Failed:", error),
-    });
-
+   
     const validateForm = () => {
         if (!formData.name.trim()) {
             setError("Name is required");
@@ -113,32 +109,7 @@ export default function SignUpPage() {
         }
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                if (user) {
-                    const response = await axios.get(
-                        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
-                        {
-                            headers: {
-                                Authorization: `Bearer ${user.access_token}`,
-                                Accept: "application/json",
-                            },
-                        }
-                    );
-                    setProfile(response.data);
-                    await setisGoogleUser(true);
-                    await handleRegister();
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        fetchData();
-    }, [user]);
-    console.log("profile", profile);
-    // normal form
+  
 
     const [formData, setFormData] = useState({
         name: "",
@@ -229,9 +200,7 @@ export default function SignUpPage() {
                         </Alert>
                     )}
                 </Box>
-                <Box sx={{ mt: "5%" }}>
-                    <GoogleButton onClick={login} />
-                </Box>
+               
             </Container>
         </>
     );

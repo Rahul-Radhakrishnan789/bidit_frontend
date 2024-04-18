@@ -7,7 +7,7 @@ import CloseIcon from "@mui/icons-material/Close";
 export default function CreateBid() {
     const [formData, setFormData] = useState({
         itemName: "",
-        category: "",
+        category: "a",
         description: "",
         auctionDuration: null,
         basePrice: null,
@@ -123,7 +123,7 @@ export default function CreateBid() {
                             required
                             sx={sx.inputBox}
                         >
-                            <MenuItem value="">Select Category</MenuItem>
+                            <MenuItem value="a">Select Category</MenuItem>
                             <MenuItem value="jewellery">Jewellery</MenuItem>
                             <MenuItem value="auditorium">Auditorium</MenuItem>
                             <MenuItem value="bridalGowns">Bridal Gowns</MenuItem>
@@ -141,7 +141,7 @@ export default function CreateBid() {
                         sx={sx.inputBox}
                     />
                     <TextField
-                        label="Duration in hour"
+                        label="minimum hour - 100 "
                         name="auctionDuration"
                         value={formData.auctionDuration}
                         onChange={handleChange}

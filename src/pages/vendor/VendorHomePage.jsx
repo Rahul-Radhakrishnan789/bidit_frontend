@@ -6,7 +6,10 @@ import axios from "../../utils/AxiosInstance";
 import ShowAllBids from "../../components/vendorComponents/ShowAllBids";
 import CreateBid from "../../components/vendorComponents/CreateBid";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useNavigate } from "react-router-dom";
 import { Box, styled } from "@mui/material";
+
 
 const SideBars = styled(Sidebar)`
     .ps-sidebar-container {
@@ -15,30 +18,41 @@ const SideBars = styled(Sidebar)`
 `;
 
 function VendorHomePage() {
-    // const [data, setData] = useState([]);
-
-    // const fetchData = async () => {
-    //     try {
-    //         const response = await axios.get("/api/getallvenues");
-
-    //         setData(response.data.data);
-    //     } catch (err) {
-    //         console.error("venue fetching error:", err);
-    //         console.log("Response:", err.response);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     fetchData();
-    // }, []);
-    // console.log(data);
+    const [bidData, setBidData] = useState([]);
 
     const { collapseSidebar } = useProSidebar();
     const [children, setChildren] = useState(<ShowAllBids />);
 
+    const nav = useNavigate()
+
+    const fetchBidData = async () => {
+        try {
+            const bidData = await axios.get("/api/getbids");
+
+            console.log("bidDta", bidData.data.data);
+
+            setBidData(bidData.data.data);
+        } catch (err) {
+            console.error("bids fetching error:", err);
+            console.log("Response:", err.response);
+        }
+    };
+
+    useEffect(() => {
+        fetchBidData();
+    }, []);
+
+    const handleLogout = () => {
+        nav("/login")
+    }
+
+    
+
     return (
         <>
+         
             <div style={({ height: "100vh" }, { display: "flex" })}>
+              
                 <SideBars style={{ height: "100vh" }}>
                     <Menu>
                         <MenuItem
@@ -55,8 +69,11 @@ function VendorHomePage() {
                         <MenuItem icon={<AddCircleOutlineIcon />} onClick={() => setChildren(<CreateBid />)}>
                             Create New Bid
                         </MenuItem>
-                        <MenuItem onClick={() => setChildren(<ShowAllBids />)} icon={<PeopleOutlinedIcon />}>
+                        <MenuItem onClick={() => setChildren(<ShowAllBids  />)} icon={<PeopleOutlinedIcon />}>
                             My Bids
+                        </MenuItem>
+                        <MenuItem onClick={handleLogout} icon={<LogoutIcon />}>
+                          Logout
                         </MenuItem>
                     </Menu>
                 </SideBars>

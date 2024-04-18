@@ -66,11 +66,12 @@ const LoginPage = () => {
                     await localStorage.setItem("vendorToken", response.data.data);
                     await localStorage.setItem("vendorId", response.data.Id);
 
-                    // replace this with new navigation
-                    //navigate("/ventordashboard")
-                    window.location.assign("https://www.youtube.com/watch?v=NswcGeJXIO0&ab_channel=Portmukk");
+                  
+                    navigate("/vendor")
+                  
                 }
             }
+            else{
             const Data = {
                 email: formData.email,
                 password: formData.password,
@@ -83,6 +84,7 @@ const LoginPage = () => {
                 await localStorage.setItem("userId", response.data.Id);
                 navigate("/");
             }
+        }
         } catch (error) {
             if (error.response.status === 403) {
                 setErrorMessage("invalid password");
@@ -93,7 +95,9 @@ const LoginPage = () => {
 
             console.log(error);
         }
+    
     };
+    
 
     return (
         <>
