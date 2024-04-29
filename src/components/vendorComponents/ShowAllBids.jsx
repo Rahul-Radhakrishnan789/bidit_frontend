@@ -136,7 +136,6 @@ const ShowAllBids = () => {
           description: selectedBid.description,
           auctionDuration: selectedBid.auctionDuration,
           basePrice: selectedBid.basePrice,
-          images: [], 
         });
       } else {
         console.error("Selected bid not found");
@@ -174,10 +173,11 @@ const ShowAllBids = () => {
     setLoading(true);
   
 try{
-  const response = await axios.put(`/api/editbid/${bidId}`, formData);
-console.log(response.data.data)
+  const response = await axios.put(`/api/editbid/${selectedBidId}`, formData);
+
+  setBidData([response.data.data])
   setOpen(false);
-  window.location.reload();
+  window.location.reload()
   
 }  catch(err){
     console.error('Error editing bid:', err);
