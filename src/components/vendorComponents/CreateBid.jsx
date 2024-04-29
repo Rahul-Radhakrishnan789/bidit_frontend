@@ -125,10 +125,7 @@ export default function CreateBid() {
                         >
                             <MenuItem value="a">Select Category</MenuItem>
                             <MenuItem value="jewellery">Jewellery</MenuItem>
-                            <MenuItem value="auditorium">Auditorium</MenuItem>
                             <MenuItem value="bridalGowns">Bridal Gowns</MenuItem>
-                            <MenuItem value="cateringService">Catering Service</MenuItem>
-                            <MenuItem value="photography">Photography</MenuItem>
                         </Select>
                     </FormControl>
                     <TextField
@@ -167,6 +164,7 @@ export default function CreateBid() {
                         multiple
                         onChange={handleImageUpload}
                     />
+                    <p>choose 5 images</p>
                     <Button sx={sx.submitButton} type="submit" variant="contained">
                         Submit
                     </Button>

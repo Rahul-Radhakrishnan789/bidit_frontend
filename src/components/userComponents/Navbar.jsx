@@ -77,8 +77,8 @@ export default function Navbar() {
                         <Button href="#" color="inherit" sx={sx.popoverButton} onClick={() => nav("/user/mybids")}>
                             My Bids
                         </Button>
-                        <Button href="#" color="inherit" sx={sx.popoverButton}>
-                            Contact
+                        <Button href="#" color="inherit" sx={sx.popoverButton} onClick={() => nav("/")}>
+                            Home
                         </Button>
                         <Button href="#" color="inherit" sx={sx.popoverButton} onClick={() => nav("/signup")}>
                             Login&nbsp;/&nbsp;Register
@@ -95,7 +95,7 @@ export default function Navbar() {
                             <Box sx={sx.navLinks} onClick={() => nav("/user/mybids")}>
                                 My&nbsp;Bids
                             </Box>
-                            <Box sx={sx.navLinks}>Contact</Box>
+                            <Box sx={sx.navLinks} onClick={() => nav("/")}>Home</Box>
                         </Box>
                         <Box
                             sx={{

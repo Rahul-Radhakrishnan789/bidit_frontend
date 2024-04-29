@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Box, styled, Grid, Card, Typography, Button, Snackbar, IconButton } from "@mui/material";
+import { Box, styled, Grid, Card, Typography, Button, Snackbar, IconButton,Modal } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import Navbar from "../../components/userComponents/Navbar";
 import Footer from "../../components/userComponents/Footer";
+import { useNavigate } from "react-router-dom";
 import axios from "../../utils/AxiosInstance";
 
 // -------styles--------------
@@ -72,6 +73,8 @@ const UserBids = () => {
         itmId: "",
         amount: undefined,
     });
+
+    const userId = localStorage.getItem("userId")
 
     // --taost--------------------
     const [open, setOpen] = useState(false);
@@ -180,7 +183,12 @@ const UserBids = () => {
     // const { highestBidderId, itemId, _id,} = datas[0];
     console.log(datas);
 
+
+    const nav = useNavigate();
+
     return (
+        <>
+        {userId ? (
         <Maincontainer sx={{ padding: { xs: "0 .5rem", sm: "0 1rem" } }}>
             <Box sx={{ position: "sticky", top: "0", background: "white", zIndex: "1" }}>
                 <Navbar />
@@ -232,6 +240,55 @@ const UserBids = () => {
                 anchorOrigin={{ vertical: "top", horizontal: "right" }}
             />
         </Maincontainer>
+          ) : (
+            <>
+            <Navbar/>
+            <Modal
+                      open={!open}
+                      onClose={handleClose}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          transform: "translate(-50%, -50%)",
+                          width: 400,
+                          bgcolor: "background.paper",
+                          boxShadow: 24,
+                          p: 4,
+                          borderRadius: "20px",
+                        }}
+                      >
+                        <Typography
+                          id="modal-modal-description"
+                          variant="h5"
+                          sx={{ color: "black", textAlign: "center" }}
+                        >
+                          Please Login
+                        </Typography>
+                        <span
+                          style={{
+                            display: "flex",
+                            width: "100%",
+                            justifyContent: "space-around",
+                          }}
+                        >
+                          <Button
+                           onClick={() => nav("/signup")}
+                            sx={{ mt: 2, color: "green" }}
+                          >
+                            OK
+                          </Button>
+                          
+                        </span>
+                      </Box>
+                    </Modal>
+                    </>
+          )}
+        </>
     );
 };
 

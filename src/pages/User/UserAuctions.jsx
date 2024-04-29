@@ -13,6 +13,8 @@ import {
     ListItemIcon,
     ListItemText,
     Button,
+    Typography,
+    Modal
 } from "@mui/material";
 import axios from "../../utils/AxiosInstance";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
@@ -102,14 +104,13 @@ const UserAuctions = () => {
     const { collapseSidebar } = useProSidebar();
     const navigate = useNavigate();
     const [bidData, setBidData] = useState([]);
-    const [changeButton, setChangeButton] = useState(true);
+
+    const userId = localStorage.getItem("userId")
+    
 
     const [filters, setFilters] = useState({
         jewellery: false,
-        auditorium: false,
         bridalGowns: false,
-        cateringService: false,
-        photography: false,
     });
 
     const filterBidData = () => {
@@ -118,25 +119,15 @@ const UserAuctions = () => {
         if (filters.jewellery) {
             filteredData = filteredData.filter((item) => item.category === "jewellery");
         }
-        if (filters.auditorium) {
-            filteredData = filteredData.filter((item) => item.category === "auditorium");
-        }
         if (filters.bridalGowns) {
             filteredData = filteredData.filter((item) => item.category === "bridalGowns");
         }
-        if (filters.cateringService) {
-            filteredData = filteredData.filter((item) => item.category === "cateringService");
-        }
-        if (filters.photography) {
-            filteredData = filteredData.filter((item) => item.category === "photography");
-        }
-
         return filteredData;
     };
 
     const fetchBidData = async () => {
         try {
-            const bidData = await axios.get("/api/getbids");
+            const bidData = await axios.get("/api/getallbids");
 
             console.log("bidDta", bidData.data.data);
 
@@ -158,7 +149,21 @@ const UserAuctions = () => {
         }));
     };
 
+
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+  
+  
     return (
+        <>
+           {userId ? (
         <Maincontainer>
             <Box sx={{ position: "sticky", top: "0", background: "white", zIndex: "999" }}>
                 <Navbar />
@@ -188,17 +193,6 @@ const UserAuctions = () => {
                                 <span>Jewellery</span>
                             </MenuItem>
                         </Tooltip>
-                        <Tooltip title="Auditorium" placement="right" arrow>
-                            <MenuItem>
-                                <span>
-                                    <Checkbox
-                                        onClick={(e) => handleCheckboxClick("auditorium", e.target.checked)}
-                                        checked={filters.auditorium}
-                                    />
-                                </span>
-                                <span>Auditorium</span>
-                            </MenuItem>
-                        </Tooltip>
                         <Tooltip title="Bridal Gowns" placement="right" arrow>
                             <MenuItem>
                                 <span>
@@ -210,28 +204,7 @@ const UserAuctions = () => {
                                 <span>Bridal Gowns</span>
                             </MenuItem>
                         </Tooltip>
-                        <Tooltip title="Catering Service" placement="right" arrow>
-                            <MenuItem>
-                                <span>
-                                    <Checkbox
-                                        onClick={(e) => handleCheckboxClick("cateringService", e.target.checked)}
-                                        checked={filters.cateringService}
-                                    />
-                                </span>
-                                <span>Catering Service</span>
-                            </MenuItem>
-                        </Tooltip>
-                        <Tooltip title="Photography" placement="right" arrow>
-                            <MenuItem>
-                                <span>
-                                    <Checkbox
-                                        onClick={(e) => handleCheckboxClick("photography", e.target.checked)}
-                                        checked={filters.photography}
-                                    />
-                                </span>
-                                <span>Photography</span>
-                            </MenuItem>
-                        </Tooltip>
+                       
                     </Menu>
                 </SideBars>
                 <AuctionContent>
@@ -285,7 +258,7 @@ const UserAuctions = () => {
                                                     onClick={() => navigate(`/user/auctions/bid/${data._id}`)}
                                                     sx={{ fontSize: "12px", color: "orange" }}
                                                 >
-                                                    Bid now
+                                                    Details
                                                 </Button>
                                             </ListItems>
                                         </Lists>
@@ -297,6 +270,55 @@ const UserAuctions = () => {
                 </AuctionContent>
             </div>
         </Maincontainer>
+          ) : (
+            <>
+            <Navbar/>
+            <Modal
+                      open={!open}
+                      onClose={handleClose}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          transform: "translate(-50%, -50%)",
+                          width: 400,
+                          bgcolor: "background.paper",
+                          boxShadow: 24,
+                          p: 4,
+                          borderRadius: "20px",
+                        }}
+                      >
+                        <Typography
+                          id="modal-modal-description"
+                          variant="h5"
+                          sx={{ color: "black", textAlign: "center" }}
+                        >
+                          Please Login
+                        </Typography>
+                        <span
+                          style={{
+                            display: "flex",
+                            width: "100%",
+                            justifyContent: "space-around",
+                          }}
+                        >
+                          <Button
+                           onClick={() => navigate("/signup")}
+                            sx={{ mt: 2, color: "green" }}
+                          >
+                            OK
+                          </Button>
+                          
+                        </span>
+                      </Box>
+                    </Modal>
+                    </>
+          )}
+        </>
     );
 };
 

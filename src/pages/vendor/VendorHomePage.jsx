@@ -5,7 +5,9 @@ import { useState, useEffect } from "react";
 import axios from "../../utils/AxiosInstance";
 import ShowAllBids from "../../components/vendorComponents/ShowAllBids";
 import CreateBid from "../../components/vendorComponents/CreateBid";
+import ShowWinners from "../../components/vendorComponents/ShowWinners";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from "react-router-dom";
 import { Box, styled } from "@mui/material";
@@ -63,7 +65,7 @@ function VendorHomePage() {
                             style={{ textAlign: "center" }}
                         >
                             {" "}
-                            <h2>Organizer</h2>
+                            <h2>Vendor</h2>
                         </MenuItem>
 
                         <MenuItem icon={<AddCircleOutlineIcon />} onClick={() => setChildren(<CreateBid />)}>
@@ -71,6 +73,9 @@ function VendorHomePage() {
                         </MenuItem>
                         <MenuItem onClick={() => setChildren(<ShowAllBids  />)} icon={<PeopleOutlinedIcon />}>
                             My Bids
+                        </MenuItem>
+                        <MenuItem onClick={() => setChildren(<ShowWinners />)} icon={<EmojiEventsIcon />}>
+                          Winners
                         </MenuItem>
                         <MenuItem onClick={handleLogout} icon={<LogoutIcon />}>
                           Logout
