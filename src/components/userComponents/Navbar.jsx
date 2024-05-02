@@ -107,6 +107,7 @@ export default function Navbar() {
                         >
                             {localStorage.getItem("userId") ? (
                                 <Box onClick={() => { localStorage.removeItem("userId")
+                                nav("/")
                                  setLogout(true)}}>Logout</Box>
                             ) : (
                                 <Button variant="outlined" onClick={() => nav("/signup")}>

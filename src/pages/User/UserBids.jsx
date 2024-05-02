@@ -152,6 +152,7 @@ const UserBids = () => {
             try {
                 const { data } = await axios.post("/api/paymentstart", {
                     amount: itemsID?.amount,
+                    userId:userId,
                 });
                 console.log(data);
                 initPayment(data.data);
@@ -160,7 +161,7 @@ const UserBids = () => {
             }
         };
         fetchData();
-    }, [itemsID.itmId, itemsID.amount]);
+    }, [itemsID.itmId, itemsID.amount,userId]);
 
     // fetch data ------------
 

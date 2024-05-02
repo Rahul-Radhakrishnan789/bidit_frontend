@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { googleLogout, useGoogleLogin } from "@react-oauth/google";
-import GoogleButton from "react-google-button";
 import {
   TextField,
   Button,
@@ -19,7 +17,6 @@ export default function SignUpPage() {
     const navigate = useNavigate();
     const [user, setUser] = useState([]);
     const [profile, setProfile] = useState([]);
-    const [isGoogleUser, setisGoogleUser] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const [error, setError] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
@@ -59,22 +56,7 @@ export default function SignUpPage() {
             const isValid = validateForm();
             if (!isValid) return;
 
-            if (isGoogleUser) {
-                const data = {
-                    username: profile.name,
-                    email: profile.email,
-                    isGoogleUser: true,
-                };
-
-                const response = await axios.post("http://localhost:5000/api/commonregister", data);
-                console.log(response, "response");
-
-                if (response && response.data.type == "googleuser") {
-                    localStorage.setItem("useToken", response.data.token);
-                    navigate("/");
-                }
-            }
-
+        
             if (isChecked) {
                 const data = {
                     username: formData.name,
@@ -87,7 +69,7 @@ export default function SignUpPage() {
                 console.log(response);
                 if (response.status === 201) {
                     localStorage.setItem("loginEmail", response.data.data);
-                    navigate("/login");
+                  
                 }
             }
             const data = {
@@ -95,17 +77,22 @@ export default function SignUpPage() {
                 email: formData.email,
                 password: formData.password,
             };
-            const response = await axios.post("http://localhost:5000/api/commonregister", data);
+            const response = await axios.post("http://localhost:5000/api/userRegister", data);
             console.log(response);
             if (response.status === 201) {
                 localStorage.setItem("loginEmail", response.data.data);
-                navigate("/login");
+                const { data } = await axios.post("http://localhost:5000/api/paymentstart", {
+                    amount: 1000,
+                });
+                console.log(data);
+                initPayment(data.data);
+               
             }
         } catch (error) {
             console.log(error);
-            if (error.response.status === 301) {
+          
                 setErrorMessage("Already registered, please login");
-            }
+            
         }
     };
 
@@ -117,6 +104,35 @@ export default function SignUpPage() {
         password: "",
     });
 
+    const initPayment = (data) => {
+        const options = {
+            amount: data.amount,
+            currency: data.currency,
+            description: "Test Transaction",
+            image: "https://img.freepik.com/premium-vector/fast-play-symbol-logo-with-letter-f_45189-7.jpg?w=740",
+            order_id: data.id,
+            handler: async (response) => {
+                try {
+                    const { data } = await axios.post(`http://localhost:5000/api/paymentforregister`, {
+                        ...response,
+                    });
+                    console.log(data);
+                    if (data) {
+                        navigate("/login");
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            },
+            theme: {
+                color: "#3399cc",
+            },
+        };
+        const rzp1 = new window.Razorpay(options); 
+        rzp1.open();
+    };
+    
+
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -125,10 +141,10 @@ export default function SignUpPage() {
         setError(null);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit =async (e) => {
         e.preventDefault();
-        // Handle form submission logic here
         handleRegister();
+      
     };
 
     return (
@@ -178,7 +194,6 @@ export default function SignUpPage() {
                                 onChange={handleCheckBoxChange}
                                 defaultChecked={false}
                                 color="primary"
-                                // inputProps={{ 'aria-label': 'isOrganizer' }}
                                 sx={{
                                     color: pink[800],
                                     "&.Mui-checked": {
@@ -189,10 +204,13 @@ export default function SignUpPage() {
                         </label></Box>
               <Box><Link onClick={() => navigate("/login")}>already have an account ? signin</Link></Box>
             </Box>
-            
-                        <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+                  {isChecked ? (  <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
                             Sign Up
-                        </Button>
+                        </Button>) :
+                         (  <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+                       pay and Sign Up 
+                     </Button>)}
+                      
                     </form>
                     {error && (
                         <Alert severity="error" sx={{ mt: 2 }}>

@@ -147,7 +147,7 @@ export default function CreateBid() {
                         required
                     />
                     <TextField
-                        label="Base Price"
+                        label="Base price - minimum 1000"
                         name="basePrice"
                         value={formData.basePrice}
                         onChange={handleChange}

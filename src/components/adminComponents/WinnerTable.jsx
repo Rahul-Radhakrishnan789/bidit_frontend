@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TablePagination from "@mui/material/TablePagination";
-import axios from "../../utils/AxiosInstance";
+
 
 const TableContainers = styled(TableContainer)`
   min-height: 323px;
@@ -23,12 +23,12 @@ const TablePaginations = styled(TablePagination)`
   }
 `;
 
-const ShowWinners = () => {
+const ShowWinners = ({winnersData}) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [winnersData, setwinnersData] = React.useState([]);
+  
 
-  const vendorId = localStorage.getItem("vendorId")
+
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -40,23 +40,6 @@ const ShowWinners = () => {
   };
 
  
-
-  const fetchVendorData = async () => {
-    try {
-      const winnersData = await axios.get(`/api/getwinners/${vendorId}`);
-
-      setwinnersData(winnersData?.data?.data);
-     
-    } catch (err) {
-      console.error("vendors fetching error:", err);
-      console.log("Response:", err.response);
-    }
-  };
-
-  React.useEffect(() => {
-    fetchVendorData();
-  }, []);
-
   return (
     <>
       {winnersData.length !== 0 ? (
@@ -75,7 +58,7 @@ const ShowWinners = () => {
                 {winnersData
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => (
-                    <TableRow key={row?._id}>
+                    <TableRow key={row._id}>
                       <TableCell >
                         {row?.itemId?.itemName}
                       </TableCell>
@@ -101,7 +84,7 @@ const ShowWinners = () => {
           />
         </div>
       ) : (
-        <h1>no winners to show</h1>
+        <h1>no Winners to show</h1>
       )}
     </>
   );
