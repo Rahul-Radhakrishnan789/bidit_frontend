@@ -24,6 +24,7 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import TurnedInIcon from "@mui/icons-material/TurnedIn";
 import TimelapseIcon from "@mui/icons-material/Timelapse";
 import Countdown from "react-countdown";
+import { useNavigate } from "react-router-dom";
 
 const Maincontainer = styled(Box)`
   background-image: url("https://t3.ftcdn.net/jpg/00/98/52/26/360_F_98522695_S9vAeY8a3O4AYFUDr2WVlk4eCWrqf7hx.jpg");
@@ -46,11 +47,11 @@ const GridContainer = styled(Grid)``;
 const GridItems = styled(Grid)``;
 
 const Cards = styled(Card)`
-  height: 65vh;
+  height: 400px;
   width: 100%;
 `;
 const ImageBox = styled(Box)`
-  height: 60%;
+  height: 50%;
   width: 100%;
 
   img {
@@ -104,6 +105,8 @@ const ShowAllBids = () => {
     basePrice: "",
 
   });
+
+  const nav = useNavigate()
 
 
   const fetchBidData = async () => {
@@ -245,6 +248,19 @@ try{
                       </Box>
                     </ListItems>
                   </Lists>
+                  <Box>
+                  <Button
+                    sx={{
+                      background: "lightgreen",
+                      color: "white",
+                      width: "100%",
+                    }}
+                    onClick={() => nav(`/vendor/bidview/${data?._id}`)}
+                  >
+                    view details
+                  </Button>
+
+                  </Box>
                   <Box
                     sx={{
                       display: "flex",

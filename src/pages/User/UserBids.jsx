@@ -201,18 +201,18 @@ const UserBids = () => {
                             <GridItems item xs={12} md={6}>
                                 <ImageAndDesc sx={{ bgcolor: "" }}>
                                     <Image>
-                                        <img src={item.highestBidderId?.bidItem?.images[0]?.url} alt="" />
+                                        <img src={item?.highestBidderId?.bidItem?.images[0]?.url} alt="" />
                                     </Image>
                                     <Typography sx={{ padding: { xs: "0 .5rem", sm: "0 2rem" }, alignSelf: "flex-start" }}>
-                                        {item.highestBidderId.bidItem.description}
+                                        {item?.highestBidderId?.bidItem?.description}
                                     </Typography>
                                 </ImageAndDesc>
                             </GridItems>
                             <GridItems item xs={12} md={6}>
                                 <BidContent sx={{ padding: { xs: "1rem", sm: "2rem" }, gap: { xs: "1rem", md: "0" } }}>
                                     <Box className="title_price">
-                                        <Typography variant="h3">{item.highestBidderId.bidItem.itemName}</Typography>
-                                        <Typography variant="h5">Bid Price: ₹ {item.highestBidderId.amount}</Typography>
+                                        <Typography variant="h3">{item?.highestBidderId?.bidItem?.itemName}</Typography>
+                                        <Typography variant="h5">Bid Price: ₹ {item?.highestBidderId?.amount}</Typography>
                                     </Box>
 
                                     <Button
@@ -220,10 +220,10 @@ const UserBids = () => {
                                         onClick={() => {
                                             item.paid
                                                 ? handleOpen()
-                                                : handleClick(item.itemId, item.highestBidderId.amount);
+                                                : handleClick(item?.itemId, item?.highestBidderId?.amount);
                                         }}
                                     >
-                                        {item.paid ? "paid" : "pay now"}
+                                        {item?.paid ? "paid" : "pay now"}
                                     </Button>
                                 </BidContent>
                             </GridItems>

@@ -10,6 +10,7 @@ import VendorHomePage from "./pages/vendor/VendorHomePage";
 import UserBidView from "./pages/User/UserBidView ";
 import UserBids from "./pages/User/UserBids";
 import AdminLoginPage from "./pages/Admin/AdminLogin";
+import ViewBidStatus from "./pages/vendor/ViewBidStatus"
 function App() {
     return (
         <GoogleOAuthProvider clientId="203571099479-rksr2l7odk6d8m71nrk8n2g1jv5aerpo.apps.googleusercontent.com">
@@ -25,6 +26,7 @@ function App() {
                         <Route path="/adminlogin" element={<AdminLoginPage/>} />
                         <Route path="/admin" element={<AdminHomePage />} />
                         <Route path="/user/mybids" element={<UserBids />} />
+                        <Route path="/vendor/bidview/:id" element={<ViewBidStatus/>} />
                     </Routes>
                 </Router>
             </div>
