@@ -69,7 +69,7 @@ export default function SignUpPage() {
                 console.log(response);
                 if (response.status === 201) {
                     localStorage.setItem("loginEmail", response.data.data);
-                  
+                  navigate("/login")
                 }
             }
             const data = {

@@ -195,7 +195,7 @@ try{
             <GridItems key={index} item xs={12} sm={6} lg={3}>
               <Cards>
                 <ImageBox>
-                  <img src={data.images[2]?.url} alt="data Image" />
+                  <img src={data.images[0]?.url} alt="data Image" />
                 </ImageBox>
                 <CardContents>
                   <Lists>
